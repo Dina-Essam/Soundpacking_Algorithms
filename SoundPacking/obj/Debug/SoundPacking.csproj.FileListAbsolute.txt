@@ -1,1 +1,2 @@
 D:\year 3\ALGORITHM\Repo\SoundPacking\SoundPacking\bin\Debug\SoundPacking.exe.config
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\bin\Debug\SoundPacking.exe.config
