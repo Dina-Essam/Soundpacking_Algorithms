@@ -82,6 +82,15 @@ namespace SoundPacking
             return myFolders;
         }
 
-       
+        public static List<Folder> worstFitHEAP(List<AudioFile> input, int maxcap)
+        {
+            MaxHeap<AudioFile> Audios = new MaxHeap<AudioFile>(input);
+            List<Folder> myFolders = new List<Folder>();
+            Folder firstFolder = new Folder(maxcap);
+            myFolders.Add(firstFolder);
+
+            return myFolders;
+        }
+
     }
 }

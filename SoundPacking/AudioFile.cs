@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoundPacking
 {
-    class AudioFile
+    class AudioFile : IComparable<AudioFile>
     {
         //Audio File class from which the arrays will be created to hold 2 data members name & Duaration
 
@@ -31,6 +31,17 @@ namespace SoundPacking
         public TimeSpan GetDuation()
         {
             return this.Duration;
+        }
+
+    
+        int IComparable<AudioFile>.CompareTo(AudioFile other)
+        {
+            if (this.Duration.TotalSeconds > other.Duration.TotalSeconds)
+                return 1;
+            else if (this.Duration.TotalSeconds == other.Duration.TotalSeconds)
+                return 0;
+            else
+                return -1;
         }
     }
 }

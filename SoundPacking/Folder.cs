@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoundPacking
 {
-    class Folder
+    class Folder : IComparable<Folder>
     {
         public int remaincap;
         public List<AudioFile> files;
@@ -20,6 +20,16 @@ namespace SoundPacking
         {
             files.Add(file);
             remaincap = remaincap - (int)file.Duration.TotalSeconds;
+        }
+
+        public int CompareTo(Folder other)
+        {
+            if (this.remaincap > other.remaincap)
+                return 1;
+            else if (this.remaincap == other.remaincap)
+                return 0;
+            else
+                return -1;
         }
     }
 }

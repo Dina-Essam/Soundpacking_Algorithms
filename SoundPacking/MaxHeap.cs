@@ -25,35 +25,60 @@ namespace SoundPacking
              BuildHeap();
  
          }
-         private void Heapfy(int i)
+
+         private int PARENT(int i)
          {
-             int l = i * 2 + 1, r, mx = i;
-             r = l + 1;
-             if (l<vals.Count)
-             {
-                 if (vals[l].CompareTo(vals[i]) >0 ) mx = l;
-                
-             }
-             if (r > vals.Count)
-             {
-                 if (vals[r].CompareTo(vals[mx]) > 0) mx = r;
+             return ( i - 1 ) / 2;
+         }
+         private int LEFT(int i)
+         {
+             return (i * 2) + 1;
+         }
+         private int RIGHT(int i)
+         {
+            return (i * 2) + 2;
+         }
+
+        private void Heapfy_down(int i)
+         {
+             int l, r, mx = i;
+             l = LEFT(i);
+             r = RIGHT(i);
+             if (l<vals.Count && vals[l].CompareTo(vals[i])>0)
+                 mx = l;
+                 
+             if (r < vals.Count && vals[r].CompareTo(vals[mx]) > 0)
+                 mx = r;
  
- 
-             }
              if (mx != i)
              {
-                 T tmp = vals[mx];
-                 vals[mx] = vals[i];
-                 vals[i] = tmp;
-                 Heapfy(mx);
+                 SWAP(mx, i);
+                 Heapfy_down(mx);
              }
- 
- 
          }
-         private void BuildHeap()
+        private void SWAP(int i,int j)
+        {
+            T tmp = vals[j];
+            vals[j] = vals[i];
+            vals[i] = tmp;
+        }
+
+        private void Heapfy_up(int i)
+        {
+            
+            if (i!=0 && vals[i].CompareTo(vals[PARENT(i)])>0)
+            {
+                SWAP(PARENT(i), i);
+                Heapfy_up(PARENT(i));
+            }
+        }
+
+
+
+        private void BuildHeap()
          {
              for (int i = (vals.Count - 1) / 2; i > -1; i--)
-                 Heapfy(i);
+                 Heapfy_down(i);
          }
  
          public T Top()
@@ -66,40 +91,39 @@ namespace SoundPacking
              T mx = vals[0];
                vals[0]=  vals[vals.Count - 1];
              vals.RemoveAt(vals.Count - 1);
-             Heapfy(0);
+             Heapfy_down(0);
              return mx;
          }
-         private static int Perant(int i)
-         {
-             return ((i & 1)==1) ? i / 2 : i / 2 - 1;
-         }
+         
          public void IncreaseKey(int i, T key)
          {
              if (key.CompareTo(vals[i]) < 0) return;
              vals[i] = key;
-             while (i > 0 && vals[Perant(i)].CompareTo(vals[i]) < 0)
+             while (i > 0 && vals[PARENT(i)].CompareTo(vals[i]) < 0)
              {
-                 T tmp = vals[Perant(i)];
-                 vals[Perant(i)] = vals[i];
+                 T tmp = vals[PARENT(i)];
+                 vals[PARENT(i)] = vals[i];
                  vals[i] = tmp;
-                 i = Perant(i);
+                 i = PARENT(i);
              }
  
          }
  
-         public void Add(T key)
+         public void PUSH(T key)
          {
              vals.Add(key);
              int i = vals.Count - 1;
-             while (i > 0 && vals[Perant(i)].CompareTo(vals[i]) < 0)
-             {
-                 T tmp = vals[Perant(i)];
-                 vals[Perant(i)] = vals[i];
-                 vals[i] = tmp;
-                 i = Perant(i);
-             }
+             Heapfy_up(i);
  
          }
- 
-     }
+
+        public void POP()
+        {
+            vals[0] = vals.Last();
+            vals.RemoveAt(vals.Count - 1);
+            Heapfy_down(0);
+
+        }
+
+    }
 }

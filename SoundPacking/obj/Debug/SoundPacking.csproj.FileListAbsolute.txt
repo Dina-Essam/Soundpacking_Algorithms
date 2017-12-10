@@ -8,3 +8,10 @@ D:\year 3\ALGORITHM\Clone\SoundpackingAlgorithms\SoundPacking\bin\Debug\SoundPac
 D:\year 3\ALGORITHM\Clone\SoundpackingAlgorithms\SoundPacking\bin\Debug\SoundPacking.pdb
 D:\year 3\ALGORITHM\Clone\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.exe
 D:\year 3\ALGORITHM\Clone\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.pdb
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.exe
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.pdb
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\bin\Debug\SoundPacking.exe
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\bin\Debug\SoundPacking.pdb
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.csprojResolveAssemblyReference.cache
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.Properties.Resources.resources
+E:\year 3\Term 1\Algorithms Analysis and Design\[2] Sounds Packing\SoundpackingAlgorithms\SoundPacking\obj\Debug\SoundPacking.csproj.GenerateResource.Cache
