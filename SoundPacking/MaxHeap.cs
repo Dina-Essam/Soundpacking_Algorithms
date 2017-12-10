@@ -14,7 +14,15 @@ namespace SoundPacking
              vals = new List<T>();
  
          }
-         public MaxHeap(int n)
+        public List<T> GETLIST()
+        {
+            return vals;
+        }
+        public int GETSIZE()
+        {
+            return vals.Count;
+        }
+        public MaxHeap(int n)
          {
              vals = new List<T>(n);
  
