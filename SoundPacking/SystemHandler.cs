@@ -34,7 +34,9 @@ namespace SoundPacking
             audiolist = getAudioFiles();
             folderlist = Methods.worstFitDecreasingLS(audiolist, maxcap);
             createFolders(folderlist, "WorstFitDecreasingLS");
-
+            audiolist = getAudioFiles();
+            folderlist = Methods.worstFitHEAP(audiolist, maxcap);
+            createFolders(folderlist, "WorstFitHeap");
 
         }
 

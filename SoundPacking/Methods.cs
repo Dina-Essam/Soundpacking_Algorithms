@@ -117,7 +117,32 @@ namespace SoundPacking
                 return myFolders.GETLIST();
         }
 
+        public static List<Folder> worstFitHEAP(List<AudioFile> input, int maxcap)
+        {
+            MaxHeap<Folder> myFolders = new MaxHeap<Folder>();
+            Folder firstFolder = new Folder(maxcap);
+            Folder temp;
+            myFolders.PUSH(firstFolder);
+            for(int i=0;i<input.Count;i++)
+            {
+                if (input[i].Duration.TotalSeconds <= myFolders.Top().remaincap)
+                {
+                    myFolders.Top().addFile(input[i]);
+                    temp = myFolders.Top();
+                    myFolders.POP();
+                    myFolders.PUSH(temp);
 
+                }
+                else
+                {
+                    temp = new Folder(maxcap);
+                    temp.addFile(input[i]);
+                    myFolders.PUSH(temp);
+                }
+                
+            }
+            return myFolders.GETLIST();
+        }
 
     }
 }
