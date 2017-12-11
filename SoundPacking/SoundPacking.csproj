@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="MaxHeap.cs" />
     <Compile Include="Methods.cs" />
+    <Compile Include="MinHeap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemHandler.cs" />

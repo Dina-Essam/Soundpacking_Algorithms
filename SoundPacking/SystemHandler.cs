@@ -25,6 +25,7 @@ namespace SoundPacking
         public static void start()
         {
             List<AudioFile> audiolist = getAudioFiles();
+            
             List<Folder> folderlist = Methods.worstFitDecreasingHEAP(audiolist, maxcap);
             createFolders(folderlist, "WorstFitDecreasingHEAP");
             audiolist = getAudioFiles();
