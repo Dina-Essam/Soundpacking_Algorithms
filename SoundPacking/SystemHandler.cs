@@ -27,18 +27,20 @@ namespace SoundPacking
             List<AudioFile> audiolist = getAudioFiles();
             
             List<Folder> folderlist = Methods.worstFitDecreasingHEAP(audiolist, maxcap);
-            createFolders(folderlist, "WorstFitDecreasingHEAP");
+            createFolders(folderlist, "[2]WorstFitDecreasingHEAP");
             audiolist = getAudioFiles();
             folderlist = Methods.worstFitLS(audiolist, maxcap);
-            createFolders(folderlist, "WorstFitLS");
+            createFolders(folderlist, "[1]WorstFitLS");
             audiolist = getAudioFiles();
             folderlist = Methods.worstFitDecreasingLS(audiolist, maxcap);
-            createFolders(folderlist, "WorstFitDecreasingLS");
+            createFolders(folderlist, "[2]WorstFitDecreasingLS");
             audiolist = getAudioFiles();
             folderlist = Methods.worstFitHEAP(audiolist, maxcap);
-            createFolders(folderlist, "WorstFitHeap");
+            createFolders(folderlist, "[1]WorstFitHeap");
             folderlist = Methods.firstFitDecreasingLS(audiolist, maxcap);
-            createFolders(folderlist, "FirstFitDecreasing");
+            createFolders(folderlist, "[3]FirstFitDecreasing");
+            folderlist = Methods.bestFitLS(audiolist, maxcap);
+            createFolders(folderlist, "[4]BestFitLS");
 
         }
 
