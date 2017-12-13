@@ -73,8 +73,9 @@ namespace SoundPacking
 
             for (int i = 0; i < myFolders.Count; i++)
             {
-                string foldername = "F" + i;
+                string foldername = "F" + (int)(i+1);
                 string newfolderpath = Path.Combine(outputpath, foldername);
+                string newtextfile= Path.Combine(outputpath, foldername +"_METADATA.txt");
                 System.IO.Directory.CreateDirectory(newfolderpath);
 
                 for (int j = 0; j < myFolders[i].files.Count; j++)
@@ -87,8 +88,19 @@ namespace SoundPacking
                     File.Copy(sourceFileName, destinationFileName);
 
                 }
-
+                FileStream fs = new FileStream(newtextfile, FileMode.Append);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(myFolders[i].files.Count.ToString());
+                TimeSpan Duration=new TimeSpan();
+                for (int j = 0; j < myFolders[i].files.Count; j++)
+                {
+                    Duration = Duration + myFolders[i].files[j].Duration;
+                    sw.WriteLine(myFolders[i].files[j].FileName.ToString()+" "+ myFolders[i].files[j].Duration.ToString());
+                }
+                sw.WriteLine(Duration.ToString());
+                sw.Close();
             }
+
 
         }
 
