@@ -85,7 +85,7 @@ namespace SoundPacking
                         + myFolders[i].files[j].FileName;
                     string destinationFileName = newfolderpath + "\\" +
                         myFolders[i].files[j].FileName;
-                    File.Copy(sourceFileName, destinationFileName);
+                    File.Copy(sourceFileName, destinationFileName,true);
 
                 }
                 FileStream fs = new FileStream(newtextfile, FileMode.Append);
