@@ -41,6 +41,7 @@ namespace SoundPacking
             createFolders(folderlist, "[3]FirstFitDecreasing");
             folderlist = Methods.bestFitLS(audiolist, maxcap);
             createFolders(folderlist, "[4]BestFitLS");
+<<<<<<< HEAD
             audiolist = getAudioFiles();
             folderlist = Methods.firstFitLS(audiolist, maxcap);
             createFolders(folderlist, "[6]FirstFit");
@@ -54,6 +55,8 @@ namespace SoundPacking
             folderlist = Methods.NextFitLS(audiolist, maxcap);
             createFolders(folderlist, "[7]NextFitLS");
             
+=======
+>>>>>>> b51f9523ba617c0fb0c0f9c6f6d19a023d8ea73c
 
         }
 
