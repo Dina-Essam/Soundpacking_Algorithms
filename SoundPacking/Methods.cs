@@ -181,6 +181,40 @@ namespace SoundPacking
             return myFolders;
         }
 
+        public static List<Folder> firstFitLS(List<AudioFile> input, int maxcap)
+        {
+            List<Folder> myFolders = new List<Folder>();
+            AudioFile[] inputArray = input.ToArray();
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                Folder remain_folder = null;
+                for (int j = 0; j < myFolders.Count; j++)
+                {
+                    if (myFolders[j].remaincap >= (int)inputArray[i].Duration.TotalSeconds)
+                    {
+
+                        remain_folder = myFolders[j];
+                        break;
+                    }
+                }
+
+                if ((remain_folder != null))
+                {
+                    remain_folder.addFile(inputArray[i]);
+                }
+                else
+                {
+                    Folder folder = new Folder(maxcap);
+                    folder.addFile(inputArray[i]);
+                    myFolders.Add(folder);
+                }
+
+            }
+
+            return myFolders;
+
+        }
+
         public static List<Folder> firstFitDecreasingLS( List<AudioFile> input, int maxcap)
         {
             List<Folder> myFolders = new List<Folder>();
@@ -214,6 +248,43 @@ namespace SoundPacking
             
             return myFolders;
 
+        }
+        
+        public static List<Folder> NextFitLS(List<AudioFile> input, int maxcap)
+        {
+            List<Folder> myFolders = new List<Folder>();
+            Folder firstFolder = new Folder(maxcap);
+            myFolders.Add(firstFolder);
+            AudioFile[] inputArray = input.ToArray();
+            Folder temp;
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                if(inputArray[i].Duration.TotalSeconds<=myFolders.Last().remaincap)
+                {
+                    myFolders.Last().addFile(inputArray[i]);
+                }
+                else
+                {
+                    temp = new Folder(maxcap);
+                    temp.addFile(input[i]);
+                    myFolders.Add(temp);
+                }
+            }
+            return myFolders;
+        }
+
+        public static List<Folder> NextFitDecreasingLS(List<AudioFile> input, int maxcap)
+        {
+            AudioFile[] inputArray = input.ToArray();
+            MinHeap.HeapSort(inputArray); //O(Nlog(N))
+            return NextFitLS(inputArray.ToList<AudioFile>(), maxcap);
+        }
+
+        public static List<Folder> bestFitDecreasingLS(List<AudioFile> input, int maxcap)
+        {
+            AudioFile[] inputArray = input.ToArray();
+            MinHeap.HeapSort(inputArray); //O(Nlog(N))
+            return bestFitLS(inputArray.ToList<AudioFile>(), maxcap);
         }
 
 
