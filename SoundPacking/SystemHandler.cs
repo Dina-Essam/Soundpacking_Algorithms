@@ -53,7 +53,10 @@ namespace SoundPacking
             audiolist = getAudioFiles();
             folderlist = Methods.NextFitLS(audiolist, maxcap);
             createFolders(folderlist, "[7]NextFitLS");
-            
+            audiolist = getAudioFiles();
+            folderlist = Methods.folderFilling(audiolist, maxcap);
+            createFolders(folderlist, "[9]FolderFilling");
+
 
         }
 
@@ -100,7 +103,7 @@ namespace SoundPacking
                         + myFolders[i].files[j].FileName;
                     string destinationFileName = newfolderpath + "\\" +
                         myFolders[i].files[j].FileName;
-                    File.Copy(sourceFileName, destinationFileName,true);
+                   // File.Copy(sourceFileName, destinationFileName,true);
 
                 }
                 FileStream fs = new FileStream(newtextfile, FileMode.Append);

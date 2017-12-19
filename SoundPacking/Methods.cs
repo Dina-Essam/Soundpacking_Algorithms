@@ -287,38 +287,46 @@ namespace SoundPacking
             return bestFitLS(inputArray.ToList<AudioFile>(), maxcap);
         }
 
-        //attempting folder filling algorithm using DP with pseudo-polynomial algorithm 
-        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap)
+        //attempting folder filling algorithm using DP with pseudo-polynomial algorithm \o/
+        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap) 
         {
-            AudioFile[] inputArray = input.ToArray();
+
             List<Folder> myFolders = new List<Folder>();
 
+            for( int i = 0; i <= input.Count; i++) //O(N)
+            {
+                myFolders.Add(findBest(ref input, maxcap, maxcap, input.Count));
+                //Removing Already Added Files ;) 
+                //Folder lastFolderAdded = myFolders.Last();
+                //foreach (AudioFile item in lastFolderAdded.files) //O(M)
+                //{
+                //    input.Remove(item);
+                //}
+            }
+             
 
             return myFolders;
         }
         
-        //0-1 knapsack
+        //0-1 knapsack B)
        // n is the array length
-        public static Folder findBest(AudioFile[] input, int maxcap,int remaincap, int n)
+        private static Folder findBest(ref List<AudioFile> input, int maxcap,int remaincap, int n) 
         {
             // Base Case
             if (n == 0 || remaincap == 0)
                 return new Folder(maxcap);
-
             // If weight of the nth item is more than Knapsack capacity W, then
             // this item cannot be included in the optimal solution
             if (input[n - 1].Duration.TotalSeconds > remaincap)
-                return findBest(input, maxcap, remaincap, n - 1);
-
+                return findBest(ref input, maxcap, remaincap, n - 1);
             // Return the maximum of two cases: 
-            // (1) nth item included 
             // (2) not included
             else
             {
-                Folder folder2 = findBest(input, maxcap, remaincap, n - 1);
-                Folder folder1 = findBest(input, maxcap,  remaincap - (int)input[n-1].Duration.TotalSeconds, n - 1);
+                Folder folder2 = findBest(ref input, maxcap, remaincap, n - 1);
+                Folder folder1 = findBest(ref input, maxcap,  remaincap - (int)input[n-1].Duration.TotalSeconds, n - 1);
                 folder1.addFile(input[n - 1]);
-                if (folder1.remaincap < folder2.remaincap)
+                if (folder1.remaincap < folder2.remaincap)  
                     return folder1;
                 else
                     return folder2;           

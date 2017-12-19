@@ -12,6 +12,7 @@ namespace SoundPacking
 
         public string FileName;
         public TimeSpan Duration;
+        public bool IsRegistered;
 
         public void SetFileName(string FileName)
         {
