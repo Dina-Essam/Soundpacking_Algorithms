@@ -287,31 +287,40 @@ namespace SoundPacking
             return bestFitLS(inputArray.ToList<AudioFile>(), maxcap);
         }
 
-        //attempting folder filling algorithm using DP with pseudo-polynomial algorithm \o/
-        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap) 
+        //attempting folder filling algorithm using DP with pseudo-polynomial algorithm
+        //0-1 knapsack
+        // n is the array length
+        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap, int N) 
         {
 
             List<Folder> myFolders = new List<Folder>();
+            Folder[,] Timeline = new Folder[N, maxcap + 1];
 
-            for( int i = 0; i <= input.Count; i++) //O(N)
+            for (int i = 0; i < N; i++)
             {
-                myFolders.Add(findBest(ref input, maxcap, maxcap, input.Count));
-                //Removing Already Added Files ;) 
-                //Folder lastFolderAdded = myFolders.Last();
-                //foreach (AudioFile item in lastFolderAdded.files) //O(M)
-                //{
-                //    input.Remove(item);
-                //}
-            }
-             
 
-            return myFolders;
+                for (int j = 1; j <= i; j++)
+                {
+
+                    for (int k = 0; k < maxcap; k++)
+                    {
+
+                    }
+
+                }
+            }
+
+
+                return myFolders;
         }
         
-        //0-1 knapsack B)
-       // n is the array length
-        private static Folder findBest(ref List<AudioFile> input, int maxcap,int remaincap, int n) 
+       // recursive method O(2^N) too large
+        /*private static Folder findBest(ref List<AudioFile> input, int maxcap,int remaincap, int n) 
         {
+            int i, w;
+            
+
+            
             // Base Case
             if (n == 0 || remaincap == 0)
                 return new Folder(maxcap);
@@ -331,7 +340,10 @@ namespace SoundPacking
                 else
                     return folder2;           
             }         
-        }
+            
+
+
+        }*/
 
 
     }
