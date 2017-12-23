@@ -54,7 +54,7 @@ namespace SoundPacking
             folderlist = Methods.NextFitLS(audiolist, maxcap);
             createFolders(folderlist, "[7]NextFitLS");
             audiolist = getAudioFiles();
-            folderlist = Methods.folderFilling(audiolist, maxcap, audiolist.Count);
+            folderlist = Methods.folderFilling2(audiolist, maxcap);
             createFolders(folderlist, "[9]FolderFilling");
 
 

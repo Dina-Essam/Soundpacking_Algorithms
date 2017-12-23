@@ -290,31 +290,63 @@ namespace SoundPacking
         //attempting folder filling algorithm using DP with pseudo-polynomial algorithm
         //0-1 knapsack
         // n is the array length
-        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap, int N) 
+        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap) 
         {
-
             List<Folder> myFolders = new List<Folder>();
-            Folder[,] Timeline = new Folder[N, maxcap + 1];
-
-            for (int i = 0; i < N; i++)
+            
+            while (input.Count!=0)
             {
-
-                for (int j = 1; j <= i; j++)
+                int N = input.Count;
+                bool[] taken = new bool[N+1];
+                Folder[,] Timeline = new Folder[N+1, maxcap + 1];
+                for (int i = 0; i <= N; i++)
                 {
-
-                    for (int k = 0; k < maxcap; k++)
+                    for (int w = 0; w <= maxcap; w++)
                     {
-
+                        if (i == 0 || w == 0)
+                            Timeline[i, w] = new Folder(maxcap);
+                        else if (input[i - 1].Duration.TotalSeconds <= w)
+                        {
+                            Folder folder2 = Timeline[i - 1, w];
+                            Folder folder1 = Timeline[i - 1, w - (int)input[i - 1].Duration.TotalSeconds];
+                            /////////////////////////////////////////////////////////////////////////
+                            if (taken[i] != true && folder1.remaincap >= input[i - 1].Duration.TotalSeconds && !folder1.files.Contains(input[i - 1]))
+                                folder1.addFile(input[i - 1]);
+                            else
+                                folder1 = new Folder(maxcap);
+                            ////////////////////////////////////////////////////////////////////////
+                            if (folder1.remaincap <= folder2.remaincap)
+                            {
+                                Timeline[i, w] = folder1;
+                            }
+                            else
+                                Timeline[i, w] = folder2;
+                        }
+                        else
+                            Timeline[i, w] = Timeline[i - 1, w];
                     }
-
                 }
+                myFolders.Add(Timeline[N, maxcap]);
+                for (int y = 0; y < Timeline[N, maxcap].files.Count; y++)
+                {
+                    taken[input.IndexOf(Timeline[N, maxcap].files.ElementAt(y))]=true;
+                    input.Remove(Timeline[N, maxcap].files.ElementAt(y));
+                }
+
             }
 
 
-                return myFolders;
+            return myFolders;
         }
-        
-       // recursive method O(2^N) too large
+
+        public static List<Folder> folderFilling2(List<AudioFile> input, int maxcap)
+        {
+            AudioFile[] inputArray = input.ToArray();
+            MinHeap.HeapSort(inputArray); //O(Nlog(N))
+            return folderFilling(inputArray.ToList<AudioFile>(), maxcap);
+        }
+
+        // recursive method O(2^N) too large
         /*private static Folder findBest(ref List<AudioFile> input, int maxcap,int remaincap, int n) 
         {
             int i, w;
