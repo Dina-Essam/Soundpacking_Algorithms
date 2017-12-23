@@ -289,19 +289,19 @@ namespace SoundPacking
 
         //attempting folder filling algorithm using DP with pseudo-polynomial algorithm
         //0-1 knapsack
-        // n is the array length
+        // O(N^2 x D)
         public static List<Folder> folderFilling(List<AudioFile> input, int maxcap) 
         {
             List<Folder> myFolders = new List<Folder>();
             
-            while (input.Count!=0)
+            while (input.Count != 0) //O(N)
             {
                 int N = input.Count;
                 bool[] taken = new bool[N+1];
                 Folder[,] Timeline = new Folder[N+1, maxcap + 1];
-                for (int i = 0; i <= N; i++)
+                for (int i = 0; i <= N; i++) //O(N)
                 {
-                    for (int w = 0; w <= maxcap; w++)
+                    for (int w = 0; w <= maxcap; w++) //O(D)
                     {
                         if (i == 0 || w == 0)
                             Timeline[i, w] = new Folder(maxcap);
@@ -310,7 +310,8 @@ namespace SoundPacking
                             Folder folder2 = Timeline[i - 1, w];
                             Folder folder1 = Timeline[i - 1, w - (int)input[i - 1].Duration.TotalSeconds];
                             /////////////////////////////////////////////////////////////////////////
-                            if (taken[i] != true && folder1.remaincap >= input[i - 1].Duration.TotalSeconds && !folder1.files.Contains(input[i - 1]))
+                            if (taken[i] != true && folder1.remaincap >= input[i - 1].Duration.TotalSeconds &&
+                                !folder1.files.Contains(input[i - 1]))
                                 folder1.addFile(input[i - 1]);
                             else
                                 folder1 = new Folder(maxcap);
