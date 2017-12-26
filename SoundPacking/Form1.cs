@@ -12,19 +12,28 @@ namespace SoundPacking
 {
     public partial class Form1 : Form
     {
+        
+
         public Form1()
         {
             InitializeComponent();
         }
+        
+        public void timems1(string x)
+        {
+            this.timee.Items.Add(x);
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             FolderBrowserDialog folderDlg = new FolderBrowserDialog();
             folderDlg.ShowNewFolderButton = true;
             // Show the FolderBrowserDialog.
             DialogResult result = folderDlg.ShowDialog();
             if (result == DialogResult.OK)
             {
+                
                 textBox1.Text = folderDlg.SelectedPath;
                 Environment.SpecialFolder root = folderDlg.RootFolder;
             }
@@ -35,9 +44,11 @@ namespace SoundPacking
 
             SystemHandler.setFolderPath(textBox1.Text);
             SystemHandler.setMaxCap(int.Parse(textBox2.Text));
-            SystemHandler.start(); //run program
-            Application.Exit();
+            SystemHandler.start(ref timee); //run program
+            //Application.Exit();
 
         }
+
+        
     }
 }

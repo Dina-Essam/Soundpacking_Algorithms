@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,53 +23,106 @@ namespace SoundPacking
         }
 
         //where we'll call all the methods
-        public static void start()
+        public static void start(ref ListView timee)
         {
-            List<AudioFile> audiolist = getAudioFiles();
             
+            List<AudioFile> audiolist = getAudioFiles();
+
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             List<Folder> folderlist = Methods.worstFitDecreasingHEAP(audiolist, maxcap);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add( "worstFitDecreasingHEAP Time = "+elapsedMs + " ms");
             //createFolders(folderlist, "[2]WorstFitDecreasingHEAP");
             createMetaData(folderlist, "[2]WorstFitDecreasingHEAP");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.worstFitLS(audiolist, maxcap);
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("worstFitLS Time = " + elapsedMs + " ms");
             //createFolders(folderlist, "[1]WorstFitLS");
             createMetaData(folderlist, "[1]WorstFitLS");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.worstFitDecreasingLS(audiolist, maxcap);
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("worstFitDecreasingLS Time = " + elapsedMs + " ms");
             //createFolders(folderlist, "[2]WorstFitDecreasingLS");
             createMetaData(folderlist, "[2]WorstFitDecreasingLS");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.worstFitHEAP(audiolist, maxcap);
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("worstFitHEAP Time = " + elapsedMs + " ms");
             //createFolders(folderlist, "[1]WorstFitHeap");
             createMetaData(folderlist, "[1]WorstFitHeap");
+
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.firstFitDecreasingLS(audiolist, maxcap);
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("firstFitDecreasingLS Time = " + elapsedMs + " ms");
             //createFolders(folderlist, "[3]FirstFitDecreasing");
             createMetaData(folderlist, "[3]FirstFitDecreasing");
+
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.bestFitLS(audiolist, maxcap);
-           // createFolders(folderlist, "[4]BestFitLS");
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("bestFitLS Time = " + elapsedMs + " ms");
+            // createFolders(folderlist, "[4]BestFitLS");
             createMetaData(folderlist, "[4]BestFitLS");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.firstFitLS(audiolist, maxcap);
-           // createFolders(folderlist, "[6]FirstFit");
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("firstFitLS Time = " + elapsedMs + " ms");
+            // createFolders(folderlist, "[6]FirstFit");
             createMetaData(folderlist, "[6]FirstFit");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.bestFitDecreasingLS(audiolist, maxcap);
-           // createFolders(folderlist, "[5]BestFitDecreasingLS");
-            createMetaData(folderlist, "[5]BestFitDecreasingLS"); ;
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("bestFitDecreasingLS Time = " + elapsedMs + " ms");
+            // createFolders(folderlist, "[5]BestFitDecreasingLS");
+            createMetaData(folderlist, "[5]BestFitDecreasingLS");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.NextFitDecreasingLS(audiolist, maxcap);
-           // createFolders(folderlist, "[8]NextFitDecreasing");
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("NextFitDecreasingLS Time = " + elapsedMs + " ms");
+            // createFolders(folderlist, "[8]NextFitDecreasing");
             createMetaData(folderlist, "[8]NextFitDecreasing");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.NextFitLS(audiolist, maxcap);
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("NextFitLS Time = " + elapsedMs+" ms");
             // createFolders(folderlist, "[7]NextFitLS");
             createMetaData(folderlist, "[7]NextFitLS");
+
             audiolist = getAudioFiles();
+            watch = System.Diagnostics.Stopwatch.StartNew();
             folderlist = Methods.folderFilling2(audiolist, maxcap);
-           // createFolders(folderlist, "[9]FolderFilling");
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            timee.Items.Add("FolderFilling Time = " + elapsedMs+" ms");
+            // createFolders(folderlist, "[9]FolderFilling");
             createMetaData(folderlist, "[9]FolderFilling");
-
-
         }
 
         public static List<AudioFile> getAudioFiles()
