@@ -9,16 +9,16 @@ namespace SoundPacking
     class Folder : IComparable<Folder>
     {
         public int remaincap;
-        public List<AudioFile> files;
+        public LinkedList<AudioFile> files;
 
         public Folder(int remaincap)
         {
             this.remaincap = remaincap;
-            this.files = new List<AudioFile>();
+            this.files = new LinkedList<AudioFile>();
         }
         public void addFile(AudioFile file)
         {
-            files.Add(file);
+            files.AddLast(file);
             remaincap = remaincap - (int)file.Duration.TotalSeconds;
         }
 

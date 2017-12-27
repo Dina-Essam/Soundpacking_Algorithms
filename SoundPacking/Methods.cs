@@ -9,23 +9,25 @@ namespace SoundPacking
     class Methods
     {
 
-        public static List<Folder> worstFitLS(List<AudioFile> input, int maxcap) //O(N x M)
+        public static LinkedList<Folder> worstFitLS(List<AudioFile> input, int maxcap) //O(N x M)
         {
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             Folder firstFolder = new Folder(maxcap);
-            myFolders.Add(firstFolder);
+            myFolders.AddLast(firstFolder);
             for (int i = 0; i < input.Count; i++) //O(N)
             {
                 int max_remain_cap = 0;
                 Folder max_remain_folder = null;
 
-                for (int j = 0; j < myFolders.Count; j++) //O(M)
+                LinkedListNode<Folder> current = myFolders.First;
+                while (current!=null) //O(M)
                 {
-                    if (myFolders[j].remaincap > max_remain_cap)
+                    if (current.Value.remaincap > max_remain_cap)
                     {
-                        max_remain_cap = myFolders[j].remaincap;
-                        max_remain_folder = myFolders[j];
+                        max_remain_cap = current.Value.remaincap;
+                        max_remain_folder = current.Value;
                     }
+                    current = current.Next;
                 }
 
                 if ((max_remain_folder != null) &&
@@ -37,7 +39,7 @@ namespace SoundPacking
                 {
                     Folder folder = new Folder(maxcap);
                     folder.addFile(input[i]);
-                    myFolders.Add(folder);
+                    myFolders.AddLast(folder);
                 }
 
             }
@@ -45,30 +47,28 @@ namespace SoundPacking
             return myFolders;
         }
 
-        public static List<Folder> worstFitDecreasingLS(List<AudioFile> input, int maxcap)
-        {
-            // sort the input using the built-in list sorting method
-            //input.Sort((x, y) => -1 * x.Duration.CompareTo(y.Duration));
-         
+        public static LinkedList<Folder> worstFitDecreasingLS(List<AudioFile> input, int maxcap)
+        {         
             // convert the input list to an array
             AudioFile[] inputArray = input.ToArray();
             MinHeap.HeapSort(inputArray); //O(Nlog(N))
 
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             Folder firstFolder = new Folder(maxcap);
-            myFolders.Add(firstFolder);
-            for (int i = 0; i < inputArray.Length; i++)
+            myFolders.AddLast(firstFolder);
+            for (int i = 0; i < inputArray.Length; i++)//O(N)
             {
                 int max_remain_cap = 0;
                 Folder max_remain_folder = null;
-
-                for (int j = 0; j < myFolders.Count; j++)
+                LinkedListNode<Folder> current = myFolders.First;
+                for (int j = 0; j < myFolders.Count; j++)//O(M)
                 {
-                    if (myFolders[j].remaincap > max_remain_cap)
+                    if (current.Value.remaincap > max_remain_cap)
                     {
-                        max_remain_cap = myFolders[j].remaincap;
-                        max_remain_folder = myFolders[j];
+                        max_remain_cap = current.Value.remaincap;
+                        max_remain_folder = current.Value;
                     }
+                    current = current.Next;
                 }
 
                 if ((max_remain_folder != null) &&
@@ -80,7 +80,7 @@ namespace SoundPacking
                 {
                     Folder folder = new Folder(maxcap);
                     folder.addFile(inputArray[i]);
-                    myFolders.Add(folder);
+                    myFolders.AddLast(folder);
                 }
 
             }
@@ -144,24 +144,25 @@ namespace SoundPacking
             return myFolders.GETLIST();
         }
 
-        public static List<Folder> bestFitLS(List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> bestFitLS(List<AudioFile> input, int maxcap)
         {
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             Folder firstFolder = new Folder(maxcap);
-            myFolders.Add(firstFolder);
-            for (int i = 0; i < input.Count; i++)
+            myFolders.AddLast(firstFolder);
+            for (int i = 0; i < input.Count; i++) //O(N)
             {
                 int min_remain_cap = maxcap;
                 Folder min_remain_folder = null;
-
-                for (int j = 0; j < myFolders.Count; j++)
+                LinkedListNode<Folder> current = myFolders.First;
+                for (int j = 0; j < myFolders.Count; j++) //O(M)
                 {
-                    if ((myFolders[j].remaincap <= min_remain_cap) &&
-                        (myFolders[j].remaincap >= (int)input[i].Duration.TotalSeconds))
+                    if ((current.Value.remaincap <= min_remain_cap) &&
+                        (current.Value.remaincap >= (int)input[i].Duration.TotalSeconds))
                     {
-                        min_remain_cap = myFolders[j].remaincap;
-                        min_remain_folder = myFolders[j];
+                        min_remain_cap = current.Value.remaincap;
+                        min_remain_folder = current.Value;
                     }
+                    current = current.Next;
                     
                 }
 
@@ -173,7 +174,7 @@ namespace SoundPacking
                 {
                     Folder folder = new Folder(maxcap);
                     folder.addFile(input[i]);
-                    myFolders.Add(folder);
+                    myFolders.AddLast(folder);
                 }
 
             }
@@ -181,21 +182,23 @@ namespace SoundPacking
             return myFolders;
         }
 
-        public static List<Folder> firstFitLS(List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> firstFitLS(List<AudioFile> input, int maxcap)
         {
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             AudioFile[] inputArray = input.ToArray();
-            for (int i = 0; i < inputArray.Length; i++)
+            for (int i = 0; i < inputArray.Length; i++)//O(N)
             {
                 Folder remain_folder = null;
-                for (int j = 0; j < myFolders.Count; j++)
+                LinkedListNode<Folder> current = myFolders.First;
+                for (int j = 0; j < myFolders.Count; j++)//O(M)
                 {
-                    if (myFolders[j].remaincap >= (int)inputArray[i].Duration.TotalSeconds)
+                    if (current.Value.remaincap >= (int)inputArray[i].Duration.TotalSeconds)
                     {
 
-                        remain_folder = myFolders[j];
+                        remain_folder = current.Value;
                         break;
                     }
+                    current = current.Next;
                 }
 
                 if ((remain_folder != null))
@@ -206,7 +209,7 @@ namespace SoundPacking
                 {
                     Folder folder = new Folder(maxcap);
                     folder.addFile(inputArray[i]);
-                    myFolders.Add(folder);
+                    myFolders.AddLast(folder);
                 }
 
             }
@@ -215,22 +218,24 @@ namespace SoundPacking
 
         }
 
-        public static List<Folder> firstFitDecreasingLS( List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> firstFitDecreasingLS( List<AudioFile> input, int maxcap)
         {
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             AudioFile[] inputArray = input.ToArray();
             MinHeap.HeapSort(inputArray); //O(Nlog(N))         
-            for (int i = 0; i < inputArray.Length; i++)
+            for (int i = 0; i < inputArray.Length; i++)//O(N)
             {          
                 Folder remain_folder = null;
-                for (int j = 0; j < myFolders.Count; j++)
+                LinkedListNode<Folder> current = myFolders.First;
+                for (int j = 0; j < myFolders.Count; j++)//O(M)
                 {
-                    if (myFolders[j].remaincap >= (int)inputArray[i].Duration.TotalSeconds)
+                    if (current.Value.remaincap >= (int)inputArray[i].Duration.TotalSeconds)
                     {
      
-                        remain_folder = myFolders[j];
+                        remain_folder = current.Value;
                         break;
                     }
+                    current = current.Next;
                 }
 
                 if ((remain_folder != null))
@@ -241,7 +246,7 @@ namespace SoundPacking
                 {
                     Folder folder = new Folder(maxcap);
                     folder.addFile(inputArray[i]);
-                    myFolders.Add(folder);
+                    myFolders.AddLast(folder);
                 }
 
             }
@@ -250,11 +255,11 @@ namespace SoundPacking
 
         }
         
-        public static List<Folder> NextFitLS(List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> NextFitLS(List<AudioFile> input, int maxcap)
         {
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             Folder firstFolder = new Folder(maxcap);
-            myFolders.Add(firstFolder);
+            myFolders.AddLast(firstFolder);
             AudioFile[] inputArray = input.ToArray();
             Folder temp;
             for (int i = 0; i < inputArray.Length; i++)
@@ -267,20 +272,20 @@ namespace SoundPacking
                 {
                     temp = new Folder(maxcap);
                     temp.addFile(input[i]);
-                    myFolders.Add(temp);
+                    myFolders.AddLast(temp);
                 }
             }
             return myFolders;
         }
 
-        public static List<Folder> NextFitDecreasingLS(List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> NextFitDecreasingLS(List<AudioFile> input, int maxcap)
         {
             AudioFile[] inputArray = input.ToArray();
             MinHeap.HeapSort(inputArray); //O(Nlog(N))
             return NextFitLS(inputArray.ToList<AudioFile>(), maxcap);
         }
 
-        public static List<Folder> bestFitDecreasingLS(List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> bestFitDecreasingLS(List<AudioFile> input, int maxcap)
         {
             AudioFile[] inputArray = input.ToArray();
             MinHeap.HeapSort(inputArray); //O(Nlog(N))
@@ -290,29 +295,30 @@ namespace SoundPacking
         //attempting folder filling algorithm using DP with pseudo-polynomial algorithm
         //0-1 knapsack
         // O(N^2 x D)
-        public static List<Folder> folderFilling(List<AudioFile> input, int maxcap) 
+        public static LinkedList<Folder> folderFilling(LinkedList<AudioFile> input, int maxcap) 
         {
-            List<Folder> myFolders = new List<Folder>();
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
             
             while (input.Count != 0) //O(N)
             {
                 int N = input.Count;
                 bool[] taken = new bool[N+1];
                 Folder[,] Timeline = new Folder[N+1, maxcap + 1];
+                LinkedListNode<AudioFile> current = input.First;
                 for (int i = 0; i <= N; i++) //O(N)
                 {
                     for (int w = 0; w <= maxcap; w++) //O(D)
                     {
                         if (i == 0 || w == 0)
                             Timeline[i, w] = new Folder(maxcap);
-                        else if (input[i - 1].Duration.TotalSeconds <= w)
+                        else if (current.Value.Duration.TotalSeconds <= w)
                         {
                             Folder folder2 = Timeline[i - 1, w];
-                            Folder folder1 = Timeline[i - 1, w - (int)input[i - 1].Duration.TotalSeconds];
+                            Folder folder1 = Timeline[i - 1, w - (int)current.Value.Duration.TotalSeconds];
                             /////////////////////////////////////////////////////////////////////////
-                            if (taken[i] != true && folder1.remaincap >= input[i - 1].Duration.TotalSeconds &&
-                                !folder1.files.Contains(input[i - 1]))
-                                folder1.addFile(input[i - 1]);
+                            if (taken[i] != true && folder1.remaincap >= current.Value.Duration.TotalSeconds &&
+                                !folder1.files.Contains(current.Value))
+                                folder1.addFile(current.Value);
                             else
                                 folder1 = new Folder(maxcap);
                             ////////////////////////////////////////////////////////////////////////
@@ -326,13 +332,24 @@ namespace SoundPacking
                         else
                             Timeline[i, w] = Timeline[i - 1, w];
                     }
+                    //
+                    if(i!=0)
+                        current=current.Next;
+                    //
                 }
-                myFolders.Add(Timeline[N, maxcap]);
+
+                myFolders.AddLast(Timeline[N, maxcap]);
+                LinkedListNode<AudioFile> current2 = Timeline[N, maxcap].files.First;
                 for (int y = 0; y < Timeline[N, maxcap].files.Count; y++)
                 {
-                    taken[input.IndexOf(Timeline[N, maxcap].files.ElementAt(y))]=true;
-                    input.Remove(Timeline[N, maxcap].files.ElementAt(y));
+                    int index = input.Select((item, inx) => new { item, inx }).First(x => x.item == current2.Value).inx;
+                    taken[index] = true;
+                    input.Remove(current2.Value);
+                    current2 = current2.Next;
+                   
                 }
+
+                
 
             }
 
@@ -340,13 +357,83 @@ namespace SoundPacking
             return myFolders;
         }
 
-        public static List<Folder> folderFilling2(List<AudioFile> input, int maxcap)
+        public static LinkedList<Folder> folderFilling2(List<AudioFile> input, int maxcap)
         {
             AudioFile[] inputArray = input.ToArray();
             MinHeap.HeapSort(inputArray); //O(Nlog(N))
-            return folderFilling(inputArray.ToList<AudioFile>(), maxcap);
+            LinkedList<AudioFile> inputLL = new LinkedList<AudioFile>(inputArray);
+            return folderFilling(inputLL, maxcap);
         }
 
+        /*
+        public static LinkedList<Folder> folderFilling3(List<AudioFile> input, int maxcap)
+        {
+            List<AudioFile> temp;
+            LinkedList<Folder> myFolders = new LinkedList<Folder>();
+           
+            while (input.Count != 0) //O(N)
+            {
+                temp = new List<AudioFile>(input);
+                MaxHeap<AudioFile> Audios = new MaxHeap<AudioFile>(temp);
+                int N = input.Count;
+                bool[] taken = new bool[N + 1];
+                Folder[,] Timeline = new Folder[N + 1, maxcap + 1];
+                for (int i = 0; i <= N; i++) //O(N)
+                {
+                    for (int w = 0; w <= maxcap; w++) //O(D)
+                    {
+
+                        if (i == 0 || w == 0)
+                            Timeline[i, w] = new Folder(maxcap);
+                        else if (Audios.Top().Duration.TotalSeconds <= w)
+                        {
+                            Folder folder2 = Timeline[i - 1, w];
+                            Folder folder1 = Timeline[i - 1, w - (int)Audios.Top().Duration.TotalSeconds];
+                            /////////////////////////////////////////////////////////////////////////
+                            if (taken[i] != true && folder1.remaincap >= Audios.Top().Duration.TotalSeconds &&
+                                !folder1.files.Contains(Audios.Top()))
+                                folder1.addFile(Audios.Top());
+                            else
+                                folder1 = new Folder(maxcap);
+                            ////////////////////////////////////////////////////////////////////////
+                            if (folder1.remaincap <= folder2.remaincap)
+                            {
+                                Timeline[i, w] = folder1;
+                            }
+                            else
+                                Timeline[i, w] = folder2;
+                        }
+                        else
+                            Timeline[i, w] = Timeline[i - 1, w];
+
+                    }
+
+                    //
+                    if (i != 0)
+                        Audios.POP();
+                    //
+
+                }
+
+
+                myFolders.AddLast(Timeline[N, maxcap]);
+                LinkedListNode<AudioFile> current2 = Timeline[N, maxcap].files.First;
+                for (int y = 0; y < Timeline[N, maxcap].files.Count; y++)
+                {
+                    int index = input.Select((item, inx) => new { item, inx }).First(x => x.item == current2.Value).inx;
+                    taken[index] = true;
+                    input.Remove(current2.Value);
+                    current2 = current2.Next;
+                   
+                }
+
+            }
+
+
+
+            return myFolders;
+        }
+        */
         // recursive method O(2^N) too large
         /*private static Folder findBest(ref List<AudioFile> input, int maxcap,int remaincap, int n) 
         {
