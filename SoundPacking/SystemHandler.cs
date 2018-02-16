@@ -35,7 +35,7 @@ namespace SoundPacking
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add( "worstFitDecreasingHEAP Time = "+elapsedMs + " ms");
-            //createFolders(folderlist, "[2]WorstFitDecreasingHEAP");
+            createFolders(folderlist, "[2]WorstFitDecreasingHEAP");
             createMetaData(folderlist, "[2]WorstFitDecreasingHEAP");
 
             audiolist = getAudioFiles();
@@ -44,7 +44,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("worstFitLS Time = " + elapsedMs + " ms");
-            //createFoldersLL(folderlist2, "[1]WorstFitLS");
+            createFoldersLL(folderlist2, "[1]WorstFitLS");
             createMetaDataLL(folderlist2, "[1]WorstFitLS");
 
             audiolist = getAudioFiles();
@@ -53,7 +53,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("worstFitDecreasingLS Time = " + elapsedMs + " ms");
-            //createFoldersLL(folderlist2, "[2]WorstFitDecreasingLS");
+            createFoldersLL(folderlist2, "[2]WorstFitDecreasingLS");
             createMetaDataLL(folderlist2, "[2]WorstFitDecreasingLS");
 
             audiolist = getAudioFiles();
@@ -62,7 +62,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("worstFitHEAP Time = " + elapsedMs + " ms");
-            //createFolders(folderlist, "[1]WorstFitHeap");
+            createFolders(folderlist, "[1]WorstFitHeap");
             createMetaData(folderlist, "[1]WorstFitHeap");
 
             watch = System.Diagnostics.Stopwatch.StartNew();
@@ -70,7 +70,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("firstFitDecreasingLS Time = " + elapsedMs + " ms");
-            //createFoldersLL(folderlist2, "[3]FirstFitDecreasing");
+            createFoldersLL(folderlist2, "[3]FirstFitDecreasing");
             createMetaDataLL(folderlist2, "[3]FirstFitDecreasing");
 
             watch = System.Diagnostics.Stopwatch.StartNew();
@@ -78,7 +78,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("bestFitLS Time = " + elapsedMs + " ms");
-            // createFoldersLL(folderlist2, "[4]BestFitLS");
+            createFoldersLL(folderlist2, "[4]BestFitLS");
             createMetaDataLL(folderlist2, "[4]BestFitLS");
 
             audiolist = getAudioFiles();
@@ -87,7 +87,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("firstFitLS Time = " + elapsedMs + " ms");
-            // createFoldersLL(folderlist2, "[6]FirstFit");
+            createFoldersLL(folderlist2, "[6]FirstFit");
             createMetaDataLL(folderlist2, "[6]FirstFit");
 
             audiolist = getAudioFiles();
@@ -96,7 +96,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("bestFitDecreasingLS Time = " + elapsedMs + " ms");
-            // createFoldersLL(folderlist2, "[5]BestFitDecreasingLS");
+            createFoldersLL(folderlist2, "[5]BestFitDecreasingLS");
             createMetaDataLL(folderlist2, "[5]BestFitDecreasingLS");
 
             audiolist = getAudioFiles();
@@ -105,7 +105,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("NextFitDecreasingLS Time = " + elapsedMs + " ms");
-            // createFoldersLL(folderlist2, "[8]NextFitDecreasing");
+            createFoldersLL(folderlist2, "[8]NextFitDecreasing");
             createMetaDataLL(folderlist2, "[8]NextFitDecreasing");
 
             audiolist = getAudioFiles();
@@ -114,7 +114,7 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("NextFitLS Time = " + elapsedMs+" ms");
-            // createFoldersLL(folderlist2, "[7]NextFitLS");
+            createFoldersLL(folderlist2, "[7]NextFitLS");
             createMetaDataLL(folderlist2, "[7]NextFitLS");
 
             audiolist = getAudioFiles();
@@ -123,18 +123,10 @@ namespace SoundPacking
             watch.Stop();
             elapsedMs = watch.ElapsedMilliseconds;
             timee.Items.Add("FolderFilling Time = " + elapsedMs+" ms");
-            // createFoldersLL(folderlist2, "[9]FolderFilling");
+            createFoldersLL(folderlist2, "[9]FolderFilling");
             createMetaDataLL(folderlist2, "[9]FolderFilling");
-/*
-            audiolist = getAudioFiles();
-            watch = System.Diagnostics.Stopwatch.StartNew();
-            folderlist2 = Methods.folderFilling3(audiolist, maxcap);
-            watch.Stop();
-            elapsedMs = watch.ElapsedMilliseconds;
-            timee.Items.Add("FolderFilling3 Time = " + elapsedMs + " ms");
-            // createFoldersLL(folderlist2, "[9]FolderFilling");
-            createMetaDataLL(folderlist2, "[10]FolderFilling3");
-*/
+
+
         }
 
         public static List<AudioFile> getAudioFiles()
